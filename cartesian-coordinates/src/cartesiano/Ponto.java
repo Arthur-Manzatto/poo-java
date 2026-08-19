@@ -32,7 +32,8 @@ public class Ponto {
     
     
     public Ponto(){
-        
+        x = 0;
+        y = 0;
     }
     
     public Ponto(double x, double y){
@@ -53,8 +54,7 @@ public class Ponto {
     
     public void assign(Ponto pn){
         
-        x = pn.x;
-        y = pn.x;
+        setXY(pn.x,pn.y);
         
     }
     
@@ -84,5 +84,8 @@ public class Ponto {
         y *= factor;
     }
    
+    public void print(int ponto){
+        System.out.println("Ponto " + ponto +": ( " + x + " ; " + y + " )");
+    }
     
 }
