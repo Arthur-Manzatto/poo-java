@@ -2,20 +2,19 @@ package tecelagem;
 
 public class Producao extends Funcionario{
     
-    protected int horasTrabDia;
-    protected int horasTrabNoite;
-    protected int horasTrabTotais;
+    private int horasTrabDia;
+    private int horasTrabNoite;
+    private int horasTrabTotais;
     
     public Producao(){
         
     }
     
-    public Producao(String nome, String rg, double salBaseHr, int horasTrabDia, int horasTrabNoite){
+    public Producao(String nome, String rg, double salBaseHr){
         
         super(nome, rg, salBaseHr);
-        this.horasTrabDia = horasTrabDia;
-        this.horasTrabNoite = horasTrabNoite;
-        this.horasTrabTotais = horasTrabDia + horasTrabNoite;
+        this.horasTrabDia = 0;
+        this.horasTrabNoite = 0;
     }
 
     public int getHorasTrabDia() {
@@ -42,9 +41,6 @@ public class Producao extends Funcionario{
         this.horasTrabTotais = horasTrabTotais;
     }
     
-    
-    
-    
     public void registratHorasDiurnas(int h){
         this.horasTrabDia+= h;
     }
@@ -65,18 +61,17 @@ public class Producao extends Funcionario{
     public double salarioLiquido(){
         horasTrabTotais = horasTrabDia + horasTrabNoite;
         
-        return (this.salBase * horasTrabDia) + ((this.salBase * horasTrabNoite) * 1.30) ;
+        return (getSalBase() * horasTrabDia) + ((getSalBase() * horasTrabNoite) * 1.30) ;
         
     }
     
     @Override
     public void hollerith(){
-        System.out.println("Nome: " + this.nome + "\n" +
-                "RG: " + this.rg + "\n" +
-                "Salario Base: R$" + this.salBase + "\n" +
-                "Horas Diurnas: " + this.horasTrabDia + "\n" +
-                "Horas Noturnas (+30%): " + this.horasTrabNoite + "\n" +
-                "Horas Trabalhadas Totais: " + this.horasTrabTotais + "\n" +
+        super.hollerith();
+        System.out.println(
+                "Horas Diurnas: " + this.horasTrabDia + "h\n" +
+                "Horas Noturnas (+30%): " + this.horasTrabNoite + "h\n" +
+                "Horas Trabalhadas Totais: " + this.horasTrabTotais + "h\n" +
                 "Salario Liquido: R$" + salarioLiquido() + "\n");
     }
     

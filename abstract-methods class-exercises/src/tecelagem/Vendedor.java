@@ -10,47 +10,34 @@ package tecelagem;
  */
 public class Vendedor extends Funcionario {
 
-    protected double totalVenda;
-    protected double comissao;
+    private double totalVenda;
     
     public Vendedor(){
         
     }
     
-    public Vendedor(String nome, String rg, double salBase, double totalVenda){
+    public Vendedor(String nome, String rg, double salBase){
         super(nome, rg, salBase);
-        this.totalVenda = totalVenda;
+        this.totalVenda = 0;
     }
 
     public double getTotalVenda() {
         return totalVenda;
     }
 
-    public void setTotalVenda(double totalVenda) {
-        this.totalVenda = totalVenda;
-    }
-
-    public double getComissao() {
-        return comissao;
-    }
-
-    public void setComissao(double comissao) {
-        this.comissao = comissao;
-    }
-    
-    
-    
     
     public void registraVenda(double valor){
         this.totalVenda += valor;
     }
    
+    public double comissao(){
+        return totalVenda*0.03;
+    }
     
     @Override
     public double salarioLiquido() {
       
-        comissao = totalVenda * 3/100;
-        return this.salBase + comissao;
+        return getSalBase() + comissao();
     }
 
     @Override
@@ -60,11 +47,10 @@ public class Vendedor extends Funcionario {
     
     @Override
     public void hollerith(){
-        System.out.println("Nome: " + this.nome + "\n" +
-                "RG: " + this.rg + "\n" +
-                "Salario Base: R$" + this.salBase + "\n" +
+        super.hollerith();
+        System.out.println(
                 "Total em Vendas: R$" + this.totalVenda + "\n" +
-                "Comissao: R$" + comissao + "\n" +
+                "Comissao: R$" + comissao() + "\n" +
                 "Salario Liquido: R$" + salarioLiquido() + "\n");
     }
     

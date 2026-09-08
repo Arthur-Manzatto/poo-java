@@ -10,9 +10,9 @@ package tecelagem;
  */
 public abstract class Funcionario {
     
-    protected String nome;
-    protected String rg;
-    protected double salBase;
+    private String nome;
+    private String rg;
+    private double salBase;
     
     public Funcionario (){
         
@@ -53,7 +53,11 @@ public abstract class Funcionario {
     
     public abstract void novoMes();
     
-    public abstract void hollerith();
+    public void hollerith(){
+        System.out.println("Nome: " + getNome() + "\n" +
+                "RG: " + getRg() + "\n" +
+                "Salario Base: R$" + getSalBase());
+    }
         
     
     
