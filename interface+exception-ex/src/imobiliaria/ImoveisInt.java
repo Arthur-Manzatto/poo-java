@@ -6,10 +6,10 @@ package imobiliaria;
 
 public interface ImoveisInt {
     
-    public void cadastrarImovel(ImoveisInt imv) throws Exception;
-    public void alugarImovel(int codigo, String corretor);
-    public void venderImovel(int codigo, String corretor);
-    public void listarImoveis(String titulo, boolean isAvailable, boolean residenciais);
+    public void cadastrarImovel(Imoveis imv) throws Exception;
+    public void alugarImovel(int codigo, String corretor) throws Exception;
+    public void venderImovel(int codigo, String corretor) throws Exception;
+    public void listarImoveis(String titulo, boolean isAvailable, boolean residenciais) throws Exception;
     
     
 }

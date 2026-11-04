@@ -4,9 +4,9 @@ package imobiliaria;
 public class Imoveis implements ImoveisInt {
     
     private int codigo, cep;
-    private String endereco, proprietario;
+    private String endereco, proprietario, corretor;
     private boolean alugado, vendido;
-    ImoveisInt lista[];
+    Imoveis lista[];
     
     public Imoveis(int codigo, int cep, String endereco, String proprietario, int nLista){
         
@@ -14,9 +14,12 @@ public class Imoveis implements ImoveisInt {
         this.cep = cep;
         this.endereco = endereco;
         this.proprietario = proprietario;
+        
         alugado = false;
         vendido = false;
         lista = new Imoveis[nLista];
+        
+        corretor = "";
         
     }
 
@@ -60,6 +63,16 @@ public class Imoveis implements ImoveisInt {
         return vendido;
     }
 
+    public String getCorretor() {
+        return corretor;
+    }
+
+    public void setCorretor(String corretor) {
+        this.corretor = corretor;
+    }
+
+    
+    
     private int contador = 0;
 
     public int getContador() {
@@ -68,39 +81,93 @@ public class Imoveis implements ImoveisInt {
     
     
     @Override
-    public void cadastrarImovel(ImoveisInt imv) throws Exception{
+    public void cadastrarImovel(Imoveis imv) throws Exception{
     
         if(getContador() >= lista.length){
             
             throw new Exception();
             
-        }else{
+        }else if(buscarCodigo(codigo) != null){
    
-            lista[getContador()] = imv;
+            throw new Exception();
             
+        }else{
+            lista[getContador()] = imv;
+            contador++;
         }
         
-        contador++;
+        
         
     
     
     }
 
     @Override
-    public void alugarImovel(int codigo, String corretor) {
+    public void alugarImovel(int codigo, String corretor) throws Exception {
      
-    
-    
+        Imoveis atual = buscarCodigo(codigo);
+        
+        if(atual == null){
+            throw new Exception();
+        }else if(atual.isAlugado() || atual.isVendido()){
+            throw new Exception();
+        }else{
+            
+            atual.setCorretor(corretor);
+            atual.alugado = true;
+        }    
     }
 
     @Override
-    public void venderImovel(int codigo, String corretor) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void venderImovel(int codigo, String corretor) throws Exception {
+       
+        Imoveis atual = buscarCodigo(codigo);
+        
+        
+        if(atual == null){
+            throw new Exception();
+        }else if(atual.isVendido()){
+            throw new Exception();
+        }else{
+            
+            atual.setCorretor(corretor);
+            atual.vendido = true;
+            
+        }  
+    
     }
 
     @Override
     public void listarImoveis(String titulo, boolean isAvailable, boolean residenciais) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+        if(isAvailable && residenciais){
+           
+            for(Imoveis c : lista){
+                if(!c.isAlugado() && !c.isVendido()){
+
+                }
+            }
+            
+        }else if(isAvailable){
+            
+            for(Imoveis c : lista){
+                if(!c.isAlugado() && !c.isVendido()){
+
+                }
+            }
+            
+        }else if(residenciais){
+            
+        }else{
+            
+        }
+        
+        
+        
+        
+        
+        System.out.println("print todos");
+    
     }
 
     
@@ -108,7 +175,9 @@ public class Imoveis implements ImoveisInt {
         
         for(int i = 0; i < getContador(); i++){
            
-            
+            if(code == lista[i].getCodigo()){
+                return lista[i];
+            }
             
         }
         
